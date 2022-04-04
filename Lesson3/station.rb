@@ -3,19 +3,17 @@ class Station
 
   def initialize(name)
    @name = name
-   @trains_list = {}
+   @trains_list = []
   end
 
   def arrive(train) #train - Объект класса Train
    @train = train
-   type = @train.number
-   number = @train.type
-   @trains_list[number] = type
+   @train_list.push(train)
   end
  
 
   def trains_select(type)
-    trains_list.select {|number, type_train| type_train == type}
+    @trains_list.each {|train| puts train if train.type == type}
    end  
 
   def depart(train) 

@@ -1,13 +1,11 @@
 class Train
-   
-  attr_reader :wagons, :speed, :type, :route, :number
+  attr_reader :wagons, :speed, :type, :route, :number, :current_station
  
   def initialize(number, type, wagons)
     @number = number
     @type = type
     @wagons = wagons
     @speed = 0
-    @route = []
 
   end 
   
@@ -28,21 +26,18 @@ class Train
     @speed -= speed  if @speed > 0 || speed > 0 
   end  
   
- def route_set(station_name)
-   @route =  station_name
+ def route_set(route)  
+   @route =  route
    @station_index  = 0
-   #При назначении маршрута поезду, поезд автоматически помещается на первую станцию в маршруте.
+   @current_station = @route.route[@station_index]
   end 
 
 
   def move_forward
-    station_index = @route.stations.find_index(@current_station)
-    current_station.depart(self)
+    station_index = @route.stations.find_index(@station_index)
+    @current_station.depart(self)
   end 
-  #Возвращать предыдущую станцию, текущую, следующую, на основе маршрута
-  def current_station
-   @route.[station_index]
-  end  
+     
  
   def next_station
    @route.route[@station_index + 1]
