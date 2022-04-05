@@ -6,62 +6,62 @@ class Train
     @type = type
     @wagons = wagons
     @speed = 0
-
   end 
   
   def acselerate(speed)
-   @speed += speed if speed > 0
+    @speed += speed if speed > 0
   end
 
   def acselerate(speed)
     @speed += speed if speed > 0
-   end
-
+  end
  
   def stop
-   @speed = 0
+    @speed = 0
   end
   
   def slowdown(speed)
-    @speed -= speed  if @speed > 0 || speed > 0 
+    @speed -= speed  if @speed > 0 || speed > 0 || @speed >= speed
   end  
   
- def route_set(route)  
-   @route =  route
-   @station_index  = 0
-   @current_station = @route.route[@station_index]
+  def route_set(route)  
+    @route =  route
+    @station_index  = 0
+    @current_station = @route.route[@station_index]
   end 
-
 
   def move_forward
-    station_index = @route.stations.find_index(@station_index)
-    @current_station.depart(self)
-  end 
-     
+    return unless @current_station == @route.finish #Если текущая станция не конечная в нашем маршруте
+    @current_station = @route.stations.find_index(@station_index + 1)
+  end    
+
+  def move_back
+    return unless @current_station == @route.start   #Если текущая станция не стартовая в нашем маршруте
+    @current_station = @route.stations.find_index(@station_index - 1)
+  end
  
   def next_station
-   @route.route[@station_index + 1]
+    @route.route[@station_index + 1]
   end
   
   def prev_station
-   return if @station_index < 1
-   @route.route[@station_index - 1]
+    return if @station_index < 1
+    @route.route[@station_index - 1]
   end
   
- 
   def add_wagons(number)
-   if @speed == 0
-    @wagons += number
-   else
-     puts "Please stop train before adding wagons"
-   end   
+    if @speed == 0
+      @wagons += number
+    else
+      puts "Please stop train before adding wagons"
+    end   
   end 
   
   def remove_wagons(number)
-   if @speed == 0 && wagons > 0
-     @wagons -= number
-   else
+    if @speed == 0 && wagons > 0
+      @wagons -= number
+    else
       puts "Please stop train and check the availability of wagons"
-   end
+    end
   end
  end     
