@@ -21,7 +21,7 @@ class Train
   end
   
   def slowdown(speed)
-    @speed -= speed  if @speed > 0 || speed > 0 || @speed >= speed
+    return @speed = 0 if speed > @speed
   end  
   
   def route_set(route)  
