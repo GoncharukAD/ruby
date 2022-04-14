@@ -11,10 +11,6 @@ class Train
   def acselerate(speed)
     @speed += speed if speed > 0
   end
-
-  def acselerate(speed)
-    @speed += speed if speed > 0
-  end
  
   def stop
     @speed = 0
@@ -50,7 +46,7 @@ class Train
   end
   
   def add_wagons(wagon)
-    if @speed == 0
+    if @speed == 0 && @type == wagon.type
       wagons.push(wagon)
     else
       puts "Пожалуйста,остановите поезд перед добавлением вагонов"
@@ -58,7 +54,7 @@ class Train
   end 
   
   def remove_wagons(wagon)
-    if @speed == 0 && wagons.empty? == false
+    if @speed == 0 && @type == wagon.type && wagons.empty? == false 
       wagons.delete(wagon)
       puts "Пожалуйста,остановите поезд и проверьте наличие вагонов"
     end
@@ -70,22 +66,6 @@ class PassengerTrain < Train
     super
     @type = "passenger"
   end
-
-  def add_wagons(wagon)
-    if wagon.type == "passenger"
-      super
-    else
-      puts "Невозможно добавить вагон этого типа к данному поезду"
-    end      
-  end
-
-  def remove_wagons(wagon)
-    if wagon.type == "cargo"
-      super
-    else
-      puts "Невозможно добавить вагон этого типа к данному поезду"
-    end      
-  end
 end
   
 class CargoTrain < Train
@@ -93,20 +73,5 @@ class CargoTrain < Train
     super
     @type = "cargo"
   end
-
-  def add_wagons(wagon)
-    if wagon.type == "cargo"
-      super
-    else
-      puts "Невозможно добавить вагон этого типа к данному поезду"
-    end      
-  end
-
-  def remove_wagons(wagon)
-    if wagon.type == "cargo"
-      super
-    else
-      puts "Невозможно добавить вагон этого типа к данному поезду"
-    end      
-  end
-end 
+end
+ 

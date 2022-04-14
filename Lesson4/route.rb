@@ -20,12 +20,3 @@ class Route
   end      
 end
 
-#Тесты
-msk_spb = Route.new("Moscow", "Sankt-Petesburg")
-msk_spb.start
-msk_spb.finish
-msk_spb.stations
-msk_spb.add_station("Pskov")
-msk_spb.add_station("Tver")
-msk_spb.remove_station("Tver")
-msk_spb.route
