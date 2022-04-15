@@ -39,11 +39,11 @@
 
     elsif answer == 2 #Создавать поезда
       puts "Введите номер поезда поезда"
-      train_number = gets.chomp
+      train_number = gets.chomp.to_i
       puts "Выберите тип поезда:
       1 - Грузовой
       2 - Пассажирский"
-      type = gets.chomp
+      type = gets.chomp.to_i
       if type == 1
         train = CargoTrain.new(train_number)
         trains.push(train_number)
