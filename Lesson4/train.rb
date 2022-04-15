@@ -5,6 +5,7 @@ class Train
     @number = number
     @speed = 0
     @type = nil
+    @route = nil
     wagons = []
   end 
   
