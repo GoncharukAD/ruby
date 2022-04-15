@@ -105,6 +105,7 @@
       puts wagons
       w = gets.chomp
       trains.select { |number| number.add_wagons(w) if number == n}
+      puts "Вы прицепили к поезду номер #{n} вагон номер #{w}"
 
     elsif answer == 7 #Отцепить вагон от поезда
       puts "Введите номер поезда из списка"
@@ -114,6 +115,7 @@
       puts wagons
       w = gets.chomp
       trains_select { |number| number.remove_wagons(w) if number == n}
+      puts "Вы отцепили от  поезда номер #{n} вагон номер #{w}"
 
     elsif answer == 8 #Переместить поезд по маршруту    
       puts "Введите номер поезда поезда"
@@ -127,7 +129,8 @@
         trains_select { |number| number.move_forward if number == n } 
       elsif m == 2
         trains_select { |number| number.move_back if number == n }
-      end   #Сделать проверку,есть ли  введенный номера поезда в массиве
+      end 
+        #Сделать проверку,есть ли  введенный номера поезда в массиве
       
     elsif answer == 9 #Просмотреть список поездов на станции
       puts "Введите название станции"
