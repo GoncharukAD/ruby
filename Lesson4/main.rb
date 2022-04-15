@@ -28,7 +28,8 @@
     12 - Посмотреть список вагонов у поезда
     13 - Посмотреть список маршрутов
     14 - Посмотреть список вагонов
-    15 - Выход"
+    15 - Посмотреть,какой маршрут назначен поезду
+    16 - Выход"
     answer = gets.chomp.to_i
 
     if answer == 1 #Создавать станции
@@ -114,7 +115,7 @@
       puts "Введите номер вагона из списка"
       puts wagons
       w = gets.chomp
-      trains_select { |number| number.remove_wagons(w) if number == n}
+      trains.select { |number| number.remove_wagons(w) if number == n}
       puts "Вы отцепили от  поезда номер #{n} вагон номер #{w}"
 
     elsif answer == 8 #Переместить поезд по маршруту    
@@ -126,9 +127,9 @@
       2 - Назад по маршруту"
       m = gets.chomp
       if m == 1
-        trains_select { |number| number.move_forward if number == n } 
+        trains.select { |number| number.move_forward if number == n } 
       elsif m == 2
-        trains_select { |number| number.move_back if number == n }
+        trains.select { |number| number.move_back if number == n }
       end 
         #Сделать проверку,есть ли  введенный номера поезда в массиве
       
@@ -136,7 +137,7 @@
       puts "Введите название станции"
       puts stations
       station_name = gets.chomp 
-      stations_select { |s| station.trains_list if s == station} #Сделать проверку,есть ли введенная станция в массиве
+      stations.select { |s| station.trains_list if s == station} #Сделать проверку,есть ли введенная станция в массиве
 
     elsif answer == 10 #Просмотреть список станций
       if stations.empty?
@@ -152,10 +153,10 @@
         puts trains
       end
     elsif answer == 13 #Посмотреть список вагонов у поезда
-      puts "Введите номер поезда поезда"
+      puts "Введите номер поезда из списка"
       puts trains
-      n = gets.chomp.to_i
-      trains_select do |number| 
+      n = gets.chomp
+      trains.select do |number| 
         if number == n
           if  number.wagons.empty?
             puts "Нет прикрепленных вагонов к  поезду"
@@ -179,9 +180,24 @@
         puts "Нет созданных вагонов"
       else  
         puts wagons
-      end  
+      end
+    elsif answer == 15 #Посмотреть,какой маршрут назначен поезду
+      puts "Введите номер поезда из списка"
+      puts trains
+      n = gets.chomp
+      trains.select do |number| 
+        if number == n
+          if  number.route.nil?
+            puts "Поезду не назначен маршрут"
+          else 
+            puts  number.route
+          end
+        else
+          puts "Проверьте правильность введенного номера поезда"
+        end
+      end        
 
-    else answer == 15 #Выход
+    else answer == 16 #Выход
       break 
     end
   end
