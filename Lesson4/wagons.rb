@@ -3,7 +3,7 @@ class Wagon
 
   def initialize(number)
     @number = number
-    @type = Nil
+    @type = nil
   end
 end
 
