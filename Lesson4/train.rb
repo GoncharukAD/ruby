@@ -49,12 +49,12 @@ class Train
     if @speed == 0 && @type == wagon.type
       wagons.push(wagon)
     else
-      puts "Пожалуйста,остановите поезд перед добавлением вагонов"
+      puts "Пожалуйста,остановите поезд перед добавлением вагонов и проверьте тип вагона"
     end   
   end 
   
   def remove_wagons(wagon)
-    if @speed == 0 && @type == wagon.type && wagons.empty? == false 
+    if @speed == 0 && wagons.empty? == false 
       wagons.delete(wagon)
       puts "Пожалуйста,остановите поезд и проверьте наличие вагонов"
     end
