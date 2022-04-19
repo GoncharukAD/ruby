@@ -1,10 +1,10 @@
 class Interface
   def initialize
     puts "Привет,это программа-абстракция железной дороги"
-    stations = []
-    trains = []
-    routes = []
-    wagons = []
+    @stations = []
+    @trains = []
+    @routes = []
+    @wagons = []
   end
   
   def run
@@ -40,7 +40,7 @@ class Interface
         elsif answer == 4 #Создать вагон
           create_wagon  
         elsif answer == 5 # Назначить маршрут поезду
-          create_route  
+          set_route  
         elsif answer == 6 #Добавить вагон к поезду
           add_wagon 
         elsif answer == 7 #Отцепить вагон от поезда
@@ -48,7 +48,7 @@ class Interface
         elsif answer == 8 #Переместить поезд по маршруту    
           set_route
         elsif answer == 9 #Просмотреть список поездов на станции
-          trains_on_stations
+          trains_on_station
         elsif answer == 10 #Просмотреть список станций
           stations_list
         elsif answer == 11 #Посмотреть список поездов
@@ -73,11 +73,11 @@ class Interface
   def create_station
     puts "Введите название станции"
     station_name = gets.chomp 
-    if stations.include?(station_name)
+    if @stations.include?(station_name)
       puts "Такая станция уже существует"
     else     
       station = Station.new(station_name)
-      stations.push(station_name)
+      @stations.push(station_name)
     end  
     puts "Вы создали станцию #{station_name}"
   end
@@ -91,10 +91,10 @@ class Interface
     type = gets.chomp.to_i
     if type == 1
       train = CargoTrain.new(train_number)
-      trains.push(train_number)
+      @trains.push(train_number)
     elsif type == 2
       train = PassengerTrain.new(train_number)
-      trains.push(train_number)  
+      @trains.push(train_number)  
     end
     puts "Вы создали поезд номер #{train_number}"
   end
@@ -102,10 +102,10 @@ class Interface
   def create_route
     puts "Введите название маршрута"
     route_name = gets.chomp
-    if routes.include?(route_name)
+    if @routes.include?(route_name)
       puts "Такой маршрут уже существует"
     else  
-      routes.push(route_name)
+      @routes.push(route_name)
       puts "Введите начальную станцию маршрута"
       route_start = gets.chomp
       puts "Введите конечную станцию маршрута"
@@ -118,7 +118,7 @@ class Interface
   def create_wagon  
     puts "Введите номер вагона"
     wagon_number = gets.chomp.to_i
-    if wagons.include?
+    if @wagons.include?
       puts "Такой вагон уже существует"
     else   
       puts "Выберите тип вагона:
@@ -127,25 +127,25 @@ class Interface
       type = gets.chomp.to_i
       if type == 1
         wagon =  CargoWagon.new(wagon_number)
-        wagons.push(wagon_number)
+        @wagons.push(wagon_number)
       elsif type == 2
         wagon = PassengerWagon.new(wagon_number)
-        wagons.push(wagon_number)  
+        @wagons.push(wagon_number)  
       end
     end   
     puts "Вы создали вагон номер #{wagon_number}"
   end  
   
-  def create_route
+  def set_route
     puts "Введите номер поезда поезда"
-    puts trains
+    puts @trains
     n = gets.chomp.to_i 
     puts "Введите название маршрута из списка"
-    puts routes
+    puts @routes
     r = gets.chomp
-    trains.select do |number|  
+    @trains.select do |number|  
       if n == number
-      number.route_set(r)
+        number.route_set(r)
       else
         puts "Проверьте правильность введенного номера поезда"
       end
@@ -155,69 +155,69 @@ class Interface
   
   def add_wagon
     puts "Введите номер поезда поезда из списка"
-    puts trains
+    puts @trains
     n = gets.chomp
     puts "Введите номер вагона из списка"
-    puts wagons
+    puts @wagons
     w = gets.chomp
-    trains.select { |number| number.add_wagons(w) if number == n}
+    @trains.select { |number| number.add_wagons(w) if number == n}
     puts "Вы прицепили к поезду номер #{n} вагон номер #{w}"
   end
   
   def remove_wagon
     puts "Введите номер поезда из списка"
-      puts trains
+      puts @trains
       n = gets.chomp
       puts "Введите номер вагона из списка"
-      puts wagons
+      puts @wagons
       w = gets.chomp
-      trains.select { |number| number.remove_wagons(w) if number == n}
+      @trains.select { |number| number.remove_wagons(w) if number == n}
       puts "Вы отцепили от  поезда номер #{n} вагон номер #{w}"
   end  
 
   def set_route
     puts "Введите номер поезда поезда"
-    puts trains
+    puts @trains
     n = gets.chomp
     puts "Переместить поезд:
     1 - Вперед по маршруту
     2 - Назад по маршруту"
     m = gets.chomp
     if m == 1
-      trains.select { |number| number.move_forward if number == n } 
+      @trains.select { |number| number.move_forward if number == n } 
     elsif m == 2
-      trains.select { |number| number.move_back if number == n }
+      @trains.select { |number| number.move_back if number == n }
     end 
   end
   
-  def trains_on_stations
+  def trains_on_station
     puts "Введите название станции"
-    puts stations
+    puts @stations
     station_name = gets.chomp 
-    stations.select { |s| station.trains_list if s == station} 
+    @stations.select { |s| station.trains_list if s == station} 
   end 
   
-  def stations_list
-    if stations.empty?
+  def station_list
+    if @stations.empty?
       puts "Нет созданных станций"
     else  
-      puts stations
+      puts @stations
     end
   end
   
   def trains_list
-    if trains.empty?
+    if @trains.empty?
       puts "Нет созданных поездов"
     else  
-      puts trains
+      puts @trains
     end
   end
   
   def trains_wagons
     puts "Введите номер поезда из списка"
-    puts trains
+    puts @trains
     n = gets.chomp
-    trains.select do |number| 
+    @trains.select do |number| 
       if number == n
         if  number.wagons.empty?
           puts "Нет прикрепленных вагонов к  поезду"
@@ -231,26 +231,26 @@ class Interface
   end
   
   def routes_list
-    if routes.empty?
+    if @routes.empty?
       puts "Нет созданных маршрутов"
     else  
-      puts routes
+      puts @routes
     end 
   end
 
   def wagons_list
-    if wagons.empty?
+    if @wagons.empty?
       puts "Нет созданных вагонов"
     else  
-      puts wagons
+      puts @wagons
     end
   end    
 
   def train_route
     puts "Введите номер поезда из списка"
-    puts trains
+    puts @trains
     n = gets.chomp
-    trains.select do |number| 
+    @trains.select do |number| 
       if number == n
         if  number.route.nil?
           puts "Поезду не назначен маршрут"
