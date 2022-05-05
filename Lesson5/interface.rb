@@ -197,7 +197,7 @@ class Interface
     @stations.select { |s| station.trains_list if s == station} 
   end 
   
-  def station_list
+  def stations_list
     if @stations.empty?
       puts "Нет созданных станций"
     else  
