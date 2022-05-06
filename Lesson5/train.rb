@@ -1,10 +1,4 @@
 class Train
-  require_relative "manufacturer_name"
-  require_relative "instance_counter"
-
-
-
-
   include ManufacturerName
   include InstanceCounter
 
