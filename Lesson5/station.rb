@@ -1,15 +1,18 @@
 class Station
   include InstanceCounter
-  
   attr_reader :name, :trains_list
+  @@all_stations = []
+  @@count_instances = 0
 
   def initialize(name)
     @name = name
     @trains_list = []
+    @@all_stations.push(name)
+    self.register_instance
   end
   
   def all
-    @stations #Массив со станциями хранится в interface.rb.Такая же функция для вывода списка станций есть в Интерфейсе.
+    @@all_stations
   end  
 
   def arrive(train) #train - Объект класса Train

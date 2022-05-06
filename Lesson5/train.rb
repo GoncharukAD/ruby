@@ -1,10 +1,19 @@
 class Train
+  require_relative "manufacturer_name"
+  require_relative "instance_counter"
+
+
+
+
   include ManufacturerName
   include InstanceCounter
 
+  @@count_instances = 0
+  
   attr_reader :speed, :type, :route, :number, :current_station, :wagons
  
   def initialize(number)
+    self.register_instance
     @number = number
     @speed = 0
     @type = nil
@@ -21,7 +30,7 @@ class Train
   end
 
   def find(number)
-    @trains.select {|n| puts n if n == number}
+    @trains.bsearch {|n| puts n if n == number}
   end  
 
   def slowdown(speed)

@@ -1,22 +1,21 @@
 module InstanceCounter
   def self.included(base)
+    base.class_variable_set :@@count_instances, 0
     base.extend ClassMethods
     base.include InstanceMethods
   end  
 
 
   module ClassMethods
-    attr_accessor :count_instances
     def  instances
-      puts "Количество экземпляров класса: #{count_instances}"
+      self.class_variable_get :@@count_instances 
     end
   end  
   module InstanceMethods
     protected
   
     def register_instance
-      self.class.count_instances = 0
-      self.class.count_instances += 1
+      self.class.class_variable_set :@@count_instances, (self.class.class_variable_get(:@@instances) + 1)
     end
   end    
 end  
