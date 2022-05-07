@@ -15,7 +15,7 @@ module InstanceCounter
     protected
   
     def register_instance
-      self.class.class_variable_set :@@count_instances, (self.class.class_variable_get(:@@instances) + 1)
+      self.class.class_variable_set :@@count_instances, (self.class.class_variable_get(:@@count_instances) + 1)
     end
   end    
 end  

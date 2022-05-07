@@ -1,8 +1,6 @@
 class Train
   include ManufacturerName
   include InstanceCounter
-
-  @@count_instances = 0
   
   attr_reader :speed, :type, :route, :number, :current_station, :wagons
  
@@ -24,7 +22,7 @@ class Train
   end
 
   def find(number)
-    @trains.bsearch {|n| puts n if n == number}
+    @trains.each {|n| puts n if n == number}
   end  
 
   def slowdown(speed)
