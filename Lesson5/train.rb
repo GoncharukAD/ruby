@@ -1,7 +1,11 @@
 class Train
+  require_relative "manufacturer_name"
+  require_relative "instance_counter"
   include ManufacturerName
   include InstanceCounter
   
+
+  @@all_trains = {}
   attr_reader :speed, :type, :route, :number, :current_station, :wagons
  
   def initialize(number)
@@ -11,6 +15,7 @@ class Train
     @type = nil
     @route = nil
     wagons = []
+    @@all_trains[number] = self
   end 
   
   def acselerate(speed)
@@ -21,8 +26,8 @@ class Train
     @speed = 0
   end
 
-  def find(number)
-    @trains.each {|n| puts n if n == number}
+  def self.find(number)
+    @@all_trains[number]
   end  
 
   def slowdown(speed)
