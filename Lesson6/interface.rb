@@ -118,7 +118,7 @@ class Interface
   def create_wagon  
     puts "Введите номер вагона.Допустимый формат: 2 буквы и 3 цифры,без дефисов и пробелов"
     wagon_number = gets.chomp.upcase
-    if @wagons.include?
+    if @wagons.include?(wagon_number)
       puts "Такой вагон уже существует"
     else   
       puts "Выберите тип вагона:

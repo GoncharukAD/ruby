@@ -5,16 +5,17 @@ class Route
   attr_reader :start, :finish, :stations, :name
 
   def initialize(start, finish, name)
-    valid?
     @start = start
     @finish = finish
     @name = name
     self.register_instance
     @stations = []
+    validate!
   end
 
   def valid?
     validate_route!
+    true
   rescue
     false  
   end 
@@ -39,11 +40,11 @@ class Route
   
   protected
 
-  def validate_route!
+  def validate!
     raise "Начальная станция маршрута не была введена" if start.nil?
     raise "Конечная станция маршрута не была введена" if finish.nil?
     raise "Название маршрута не было введено" if name.nil?
-    raise "Некорректный формат названия маршрута" if number !~ NUMBER_FORMAT
+    raise "Некорректный формат названия маршрута" if name !~ NAME_FORMAT
   end
 end
 

@@ -10,7 +10,6 @@ class Train
   attr_reader :speed, :type, :route, :number, :current_station, :wagons
  
   def initialize(number)
-    valid?
     @number = number
     @speed = 0
     @type = nil
@@ -18,6 +17,7 @@ class Train
     wagons = []
     self.register_instance
     @@all_trains[number] = self
+    validate!
   end 
   
   def acselerate(speed)
@@ -25,7 +25,8 @@ class Train
   end
 
   def valid?
-    validate_train!
+    validate!
+    true
   rescue
     false  
   end    
@@ -85,7 +86,7 @@ class Train
 
   protected
 
-  def validate_train!
+  def validate!
     raise "Номер поезда не был введен" if number.nil?
     raise "Некорректный формат номера поезда" if number !~ NUMBER_FORMAT
   end

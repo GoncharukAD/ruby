@@ -7,21 +7,22 @@ class Wagon
   NUMBER_FORMAT = /^[а-я]{2}\d{3}$/i
 
   def initialize(number)
-    valid?
     @number = number
     @type = nil
     self.register_instance
+    validate!
   end
 
   def valid?
-    validate_train!
+    validate!
+    true
   rescue
     false  
   end 
 
   protected
 
-  def validate_wagon!
+  def validate!
     raise "Номер вагона не был введен" if number.nil?
     raise "Некорректный формат номера вагона" if number !~ NUMBER_FORMAT
   end
