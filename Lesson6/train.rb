@@ -4,20 +4,20 @@ class Train
   include ManufacturerName
   include InstanceCounter
   
-
   @@all_trains = {}
-  NUMBER_FORMAT = /^[а-я]{3}|\d{3}-*[а-я]|\d{2}$/
+  NUMBER_FORMAT = /^[а-я]{3}|\d{3}-*[а-я]|\d{2}$/i
+
   attr_reader :speed, :type, :route, :number, :current_station, :wagons
  
   def initialize(number)
-    self.register_instance
+    valid?
     @number = number
     @speed = 0
     @type = nil
     @route = nil
     wagons = []
+    self.register_instance
     @@all_trains[number] = self
-    valid?
   end 
   
   def acselerate(speed)

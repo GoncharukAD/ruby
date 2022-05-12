@@ -71,8 +71,8 @@ class Interface
   private # Для сокрытия реализации
 
   def create_station
-    puts "Введите название станции"
-    station_name = gets.chomp 
+    puts "Введите название станции.Допустимый формат: Допустимый формат: от 2 до 15 букв без пробелов и дефисов"
+    station_name = gets.chomp.capitalize 
     if @stations.include?(station_name)
       puts "Такая станция уже существует"
     else     
@@ -84,11 +84,11 @@ class Interface
 
   def create_train
     puts "Введите номер поезда поезда.Допустимый формат: три буквы или цифры в любом порядке, необязательный дефис (может быть, а может нет) и еще 2 буквы или цифры после дефиса"
-    train_number = gets.chomp.to_i
+    train_number = gets.chomp.upcase
     puts "Выберите тип поезда:
     1 - Грузовой
     2 - Пассажирский"
-    type = gets.chomp.to_i
+    type = gets.chomp
     if type == 1
       train = CargoTrain.new(train_number)
       @trains.push(train_number)
@@ -100,7 +100,7 @@ class Interface
   end
   
   def create_route
-    puts "Введите название маршрута"
+    puts "Введите название маршрута.Допустимый формат: от 2 до 15 букв первый город маршрута,дефис,от 2 до 15 букв первый город маршрута"
     route_name = gets.chomp
     if @routes.include?(route_name)
       puts "Такой маршрут уже существует"
@@ -116,8 +116,8 @@ class Interface
   end
   
   def create_wagon  
-    puts "Введите номер вагона"
-    wagon_number = gets.chomp.to_i
+    puts "Введите номер вагона.Допустимый формат: 2 буквы и 3 цифры,без дефисов и пробелов"
+    wagon_number = gets.chomp.upcase
     if @wagons.include?
       puts "Такой вагон уже существует"
     else   
@@ -139,7 +139,7 @@ class Interface
   def set_route
     puts "Введите номер поезда поезда"
     @trains
-    n = gets.chomp.to_i 
+    n = gets.chomp.upcase
     puts "Введите название маршрута из списка"
      @routes
     r = gets.chomp
@@ -216,7 +216,7 @@ class Interface
   def trains_wagons
     puts "Введите номер поезда из списка"
     @trains
-    n = gets.chomp
+    n = gets.chomp.upcase
     @trains.select do |number| 
       if number == n
         if  number.wagons.empty?
