@@ -25,5 +25,6 @@ class Wagon
   def validate!
     raise "Номер вагона не был введен" if number.nil?
     raise "Некорректный формат номера вагона" if number !~ NUMBER_FORMAT
+  rescue
   end
 end

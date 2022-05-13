@@ -1,16 +1,16 @@
 class Station
-  require_relative "instance_counter"
   include InstanceCounter
   attr_reader :name, :trains_list
+
   @@all_stations = []
   NAME_FORMAT = /^[a-я]{2,15}$/i
 
   def initialize(name)
     @name = name
     @trains_list = []
-    @@all_stations.push(name)
+    @@all_stations.push(self)
     self.register_instance
-    validate!
+    valid?
   end
   
   def all
@@ -41,6 +41,10 @@ class Station
 
   def validate!
     raise "Название станции не было введено" if name.nil?
-    raise "Некорректный формат названия станции" if name !~ NAME_FORMAT
+    raise "Некорректный формат названия станции" if name !~ NAME_FORMAT 
+  rescue RuntimeError
+    puts "Проверьте корректность написания названия станции"
+    station_name = gets.chomp
+    retry
   end
 end

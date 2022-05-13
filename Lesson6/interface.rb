@@ -68,18 +68,17 @@ class Interface
     end
   end
 
-  private # Для сокрытия реализации
 
   def create_station
     puts "Введите название станции.Допустимый формат: Допустимый формат: от 2 до 15 букв без пробелов и дефисов"
-    station_name = gets.chomp.capitalize 
+    station_name = gets.chomp
     if @stations.include?(station_name)
       puts "Такая станция уже существует"
-    else     
+    else    
       station = Station.new(station_name)
       @stations.push(station_name)
-    end  
-    puts "Вы создали станцию #{station_name}"
+      puts "Вы создали станцию #{station_name}" 
+    end   
   end
 
   def create_train

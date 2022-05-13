@@ -17,7 +17,7 @@ class Train
     wagons = []
     self.register_instance
     @@all_trains[number] = self
-    validate!
+    valid?
   end 
   
   def acselerate(speed)
@@ -89,6 +89,10 @@ class Train
   def validate!
     raise "Номер поезда не был введен" if number.nil?
     raise "Некорректный формат номера поезда" if number !~ NUMBER_FORMAT
+  rescue RuntimeError
+    puts "Проверьте правильность написания номера поезда"
+    create_station
+    retry
   end
 end
  
