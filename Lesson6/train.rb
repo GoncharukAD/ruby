@@ -18,6 +18,7 @@ class Train
     self.register_instance
     @@all_trains[number] = self
     valid?
+    #puts "Вы создали поезд номер #{train_number} if valid? == true "Пока не использовать,т.к. не знаю,как сделать так,чтобы писало только тогда,когда поезд создан 
   end 
   
   def acselerate(speed)
@@ -89,10 +90,9 @@ class Train
   def validate!
     raise "Номер поезда не был введен" if number.nil?
     raise "Некорректный формат номера поезда" if number !~ NUMBER_FORMAT
-  rescue RuntimeError
-    puts "Проверьте правильность написания номера поезда"
-    create_station
-    retry
+  rescue StandardError => e
+    puts "Ошибка: #{e.message}"
+    puts "Введите корректные данные"
   end
 end
  

@@ -76,8 +76,7 @@ class Interface
       puts "Такая станция уже существует"
     else    
       station = Station.new(station_name)
-      @stations.push(station_name)
-      puts "Вы создали станцию #{station_name}" 
+      @stations.push(station_name) 
     end   
   end
 
@@ -95,7 +94,6 @@ class Interface
       train = PassengerTrain.new(train_number)
       @trains.push(train_number)  
     end
-    puts "Вы создали поезд номер #{train_number}"
   end
   
   def create_route
@@ -110,8 +108,7 @@ class Interface
       puts "Введите конечную станцию маршрута"
       route_finish = gets.chomp
       route1 = Route.new(route_start, route_finish, route_name)
-    end  
-    puts "Вы создали маршрут #{route_start} - #{route_finish}"
+    end   
   end
   
   def create_wagon  
@@ -132,7 +129,6 @@ class Interface
         @wagons.push(wagon_number)  
       end
     end   
-    puts "Вы создали вагон номер #{wagon_number}"
   end  
   
   def set_route

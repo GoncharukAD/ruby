@@ -11,6 +11,7 @@ class Wagon
     @type = nil
     self.register_instance
     validate!
+    #puts "Вы создали вагон номер #{wagon_number}" Пока не использовать,т.к. не знаю,как сделать так,чтобы писало только тогда,когда маршрут создан 
   end
 
   def valid?
@@ -25,6 +26,8 @@ class Wagon
   def validate!
     raise "Номер вагона не был введен" if number.nil?
     raise "Некорректный формат номера вагона" if number !~ NUMBER_FORMAT
-  rescue
+  rescue StandardError => e
+    puts "Ошибка: #{e.message}"
+    puts "Введите корректные данные"
   end
 end

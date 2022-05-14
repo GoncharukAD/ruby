@@ -11,6 +11,7 @@ class Station
     @@all_stations.push(self)
     self.register_instance
     valid?
+    #puts "Вы создали станцию #{name}" if valid? == true Пока не использовать,т.к. не знаю,как сделать так,чтобы писало только тогда,когда станция создана. 
   end
   
   def all
@@ -42,9 +43,8 @@ class Station
   def validate!
     raise "Название станции не было введено" if name.nil?
     raise "Некорректный формат названия станции" if name !~ NAME_FORMAT 
-  rescue RuntimeError
-    puts "Проверьте корректность написания названия станции"
-    station_name = gets.chomp
-    retry
+  rescue StandardError => e
+    puts "Ошибка: #{e.message}"
+    puts "Введите корректные данные"
   end
 end
