@@ -86,7 +86,7 @@ class Interface
     puts "Выберите тип поезда:
     1 - Грузовой
     2 - Пассажирский"
-    type = gets.chomp
+    type = gets.chomp.to_i
     if type == 1
       train = CargoTrain.new(train_number)
       @trains.push(train_number)
@@ -256,5 +256,5 @@ class Interface
         puts "Проверьте правильность введенного номера поезда"
       end
     end 
-  end   
+  end
 end 

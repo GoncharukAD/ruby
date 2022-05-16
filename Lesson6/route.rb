@@ -11,13 +11,15 @@ class Route
     self.register_instance
     @stations = []
     valid?
-    #puts "Вы создали маршрут #{route_start} - #{route_finish}" Пока не использовать,т.к. не знаю,как сделать так,чтобы писало только тогда,когда маршрут создан
+    puts "Вы создали маршрут #{start} - #{finish}" if valid? == true
   end
 
   def valid?
     validate!
     true
-  rescue
+  rescue StandardError => e
+    puts "Ошибка: #{e.message}"
+    puts "Введите корректные данные"
     false  
   end 
 
@@ -46,9 +48,6 @@ class Route
     raise "Конечная станция маршрута не была введена" if finish.nil?
     raise "Название маршрута не было введено" if name.nil?
     raise "Некорректный формат названия маршрута" if name !~ NAME_FORMAT
-  rescue StandardError => e
-    puts "Ошибка: #{e.message}"
-    puts "Введите корректные данные"
-  end
+  end  
 end
 

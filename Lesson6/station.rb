@@ -11,7 +11,7 @@ class Station
     @@all_stations.push(self)
     self.register_instance
     valid?
-    #puts "Вы создали станцию #{name}" if valid? == true Пока не использовать,т.к. не знаю,как сделать так,чтобы писало только тогда,когда станция создана. 
+    puts "Вы создали станцию #{name}" if valid? == true 
   end
   
   def all
