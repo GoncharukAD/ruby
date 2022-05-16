@@ -16,11 +16,7 @@ class Route
 
   def valid?
     validate!
-    true
-  rescue StandardError => e
-    puts "Ошибка: #{e.message}"
-    puts "Введите корректные данные"
-    false  
+    true 
   end 
 
   def route

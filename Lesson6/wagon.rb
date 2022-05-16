@@ -16,11 +16,7 @@ class Wagon
 
   def valid?
     validate!
-    true
-  rescue StandardError => e
-    puts "Ошибка: #{e.message}"
-    puts "Введите корректные данные"
-    false  
+    true 
   end 
 
   protected

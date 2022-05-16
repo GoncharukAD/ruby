@@ -74,8 +74,13 @@ class Interface
     station_name = gets.chomp
     if @stations.include?(station_name)
       puts "Такая станция уже существует"
-    else    
+    else
+      begin    
       station = Station.new(station_name)
+      rescue StandardError => e
+        puts "Ошибка: #{e.message}"
+        puts "Введите корректные данные"
+      end  
       @stations.push(station_name) 
     end   
   end
@@ -88,10 +93,20 @@ class Interface
     2 - Пассажирский"
     type = gets.chomp.to_i
     if type == 1
+      begin
       train = CargoTrain.new(train_number)
+      rescue StandardError => e
+      puts "Ошибка: #{e.message}"
+      puts "Введите корректные данные"
+      end
       @trains.push(train_number)
     elsif type == 2
+      begin
       train = PassengerTrain.new(train_number)
+    rescue StandardError => e
+      puts "Ошибка: #{e.message}"
+      puts "Введите корректные данные"
+      end
       @trains.push(train_number)  
     end
   end
@@ -107,7 +122,12 @@ class Interface
       route_start = gets.chomp
       puts "Введите конечную станцию маршрута"
       route_finish = gets.chomp
+      begin
       route1 = Route.new(route_start, route_finish, route_name)
+      rescue StandardError => e
+      puts "Ошибка: #{e.message}"
+      puts "Введите корректные данные"
+      end
     end   
   end
   
@@ -122,10 +142,20 @@ class Interface
       2 - Пассажирский"
       type = gets.chomp.to_i
       if type == 1
+        begin
         wagon =  CargoWagon.new(wagon_number)
+        rescue StandardError => e
+        puts "Ошибка: #{e.message}"
+        puts "Введите корректные данные"
+        end
         @wagons.push(wagon_number)
       elsif type == 2
+        begin
         wagon = PassengerWagon.new(wagon_number)
+        rescue StandardError => e
+        puts "Ошибка: #{e.message}"
+        puts "Введите корректные данные"
+        end
         @wagons.push(wagon_number)  
       end
     end   

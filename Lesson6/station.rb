@@ -20,9 +20,7 @@ class Station
   
   def valid?
     validate!
-    true
-  rescue
-    false  
+    true  
   end 
   
 
@@ -43,8 +41,5 @@ class Station
   def validate!
     raise "Название станции не было введено" if name.nil?
     raise "Некорректный формат названия станции" if name !~ NAME_FORMAT 
-  rescue StandardError => e
-    puts "Ошибка: #{e.message}"
-    puts "Введите корректные данные"
   end
 end
