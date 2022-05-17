@@ -17,7 +17,7 @@ class Train
     wagons = []
     self.register_instance
     @@all_trains[number] = self
-    valid?
+    validate!
     puts "Вы создали поезд номер #{number}" if valid? == true
   end 
   

@@ -10,7 +10,7 @@ class Wagon
     @number = number
     @type = nil
     self.register_instance
-    valid?
+    validate!
     puts "Вы создали вагон номер #{number}" if valid? == true
   end
 

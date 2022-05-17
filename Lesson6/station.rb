@@ -10,7 +10,7 @@ class Station
     @trains_list = []
     @@all_stations.push(self)
     self.register_instance
-    valid?
+    validate!
     puts "Вы создали станцию #{name}" if valid? == true 
   end
   

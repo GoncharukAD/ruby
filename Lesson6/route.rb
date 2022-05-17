@@ -10,7 +10,7 @@ class Route
     @name = name
     self.register_instance
     @stations = []
-    valid?
+    validate!
     puts "Вы создали маршрут #{start} - #{finish}" if valid? == true
   end
 
