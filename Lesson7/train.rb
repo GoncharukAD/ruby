@@ -21,7 +21,7 @@ class Train
     puts "Вы создали поезд номер #{number}" if valid? == true
   end 
 
-  def noname(&block) #Cпорный метод
+  def sort_wagon(&block) #Cпорный метод
     block.call(@wagons)
   end  
   

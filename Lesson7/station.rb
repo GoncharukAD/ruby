@@ -18,7 +18,7 @@ class Station
     @@all_stations
   end
 
-  def noname(&block) #Cпорный метод
+  def sort_train (&block) # принимает блок и проходит по всем поездам на станции, передавая каждый поезд в блок.
     block.call(@trains_list)
   end  
 
@@ -29,7 +29,7 @@ class Station
   end 
   
 
-  def arrive(train) #train - Объект класса Train
+  def arrive(train) 
     @train_list.push(train)
   end
 

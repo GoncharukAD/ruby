@@ -19,6 +19,7 @@ class CargoWagon < Wagon
 
   def occupied_volume
     puts "Занятый объем в вагоне: #{@volume - @free_volume}"
+    puts "Осталось свободного объема #{free_volume}"
   end
 
   def validate!
