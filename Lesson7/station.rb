@@ -1,4 +1,6 @@
 class Station
+  require_relative "manufacturer_name"
+  require_relative "instance_counter"
   include InstanceCounter
   attr_reader :name, :trains_list
 
@@ -18,8 +20,8 @@ class Station
     @@all_stations
   end
 
-  def sort_train (&block) # принимает блок и проходит по всем поездам на станции, передавая каждый поезд в блок.
-    block.call(@trains_list)
+  def trains_list_actions # принимает блок и проходит по всем поездам на станции, передавая каждый поезд в блок.
+    @trains_list.each {|t| yield t}
   end  
 
 

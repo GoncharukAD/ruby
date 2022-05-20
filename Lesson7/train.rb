@@ -7,22 +7,22 @@ class Train
   @@all_trains = {}
   NUMBER_FORMAT = /^[а-я]{3}|\d{3}-*[а-я]|\d{2}$/i
 
-  attr_reader :speed, :type, :route, :number, :current_station, :wagons,
+  attr_reader :speed, :type, :route, :number, :current_station, :wagons_list
  
   def initialize(number)
     @number = number
     @speed = 0
     @type = nil
     @route = nil
-    @wagons = []
+    @wagons_list = []
     self.register_instance
     @@all_trains[number] = self
     validate!
     puts "Вы создали поезд номер #{number}" if valid? == true
   end 
 
-  def sort_wagon(&block) #Cпорный метод
-    block.call(@wagons)
+  def wagons_list_actions 
+    @wagons_list.each {|w| yield w}
   end  
   
   def acselerate(speed)
@@ -74,15 +74,15 @@ class Train
   
   def add_wagons(wagon)
     if @speed == 0 && @type == wagon.type
-      wagons.push(wagon)
+      @wagons_list.push(wagon)
     else
       puts "Пожалуйста,остановите поезд перед добавлением вагонов и проверьте тип вагона"
     end   
   end 
   
   def remove_wagons(wagon)
-    if @speed == 0 && wagons.empty? == false 
-      wagons.delete(wagon)
+    if @speed == 0 && @wagons_list.empty? == false 
+      @wagons_list.delete(wagon)
       puts "Пожалуйста,остановите поезд и проверьте наличие вагонов"
     end
   end

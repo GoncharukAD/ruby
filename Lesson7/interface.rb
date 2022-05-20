@@ -31,8 +31,8 @@ class Interface
       answer = gets.chomp.to_i
       case answer
       when 1 then create_station #Создавать станции
-      when 2 then create_route  #Создавать поезда
-      when 3 then create_station #Создать маршрут
+      when 2 then create_train  #Создавать поезда
+      when 3 then create_route #Создать маршрут
       when 4 then create_wagon # Создать вагон
       when 5 then set_route # Назначить маршрут поезду
       when 6 then add_wagon #Добавить вагон к поезду
@@ -69,8 +69,8 @@ class Interface
 
   def create_train
     puts "Введите номер поезда поезда.Допустимый формат: три буквы или цифры в любом порядке, необязательный дефис (может быть, а может нет) и еще 2 буквы или цифры после дефиса"
-    train_number = gets.chomp.upcase
-    puts "Такая станция уже существует" if @trains.include?(train_number)
+    train_number = gets.chomp
+    puts "Такой поезд уже существует" if @trains.include?(train_number)
     puts "Выберите тип поезда:
     1 - Грузовой
     2 - Пассажирский"
@@ -79,16 +79,16 @@ class Interface
       begin
       train = CargoTrain.new(train_number)
       rescue StandardError => e
-      puts "Ошибка: #{e.message}"
-      puts "Введите корректные данные"
+        puts "Ошибка: #{e.message}"
+        puts "Введите корректные данные"
       end
       @trains[train_number] = train
     elsif type == 2
       begin
       train = PassengerTrain.new(train_number)
       rescue StandardError => e
-      puts "Ошибка: #{e.message}"
-      puts "Введите корректные данные"
+        puts "Ошибка: #{e.message}"
+        puts "Введите корректные данные"
       end
       @trains[train_number] = train
     end
@@ -105,15 +105,15 @@ class Interface
     begin
     route = Route.new(route_start, route_finish, route_name)
     rescue StandardError => e
-    puts "Ошибка: #{e.message}"
-    puts "Введите корректные данные"
-    @routes[route_name] = route 
-    end   
+      puts "Ошибка: #{e.message}"
+      puts "Введите корректные данные"
+    end
+    @routes[route_name] = route    
   end
   
   def create_wagon  
     puts "Введите номер вагона.Допустимый формат: 2 буквы и 3 цифры,без дефисов и пробелов"
-    wagon_number = gets.chomp.upcase
+    wagon_number = gets.chomp
     puts "Такой вагон уже существует" if @wagons.include?(wagon_number)  
     puts "Выберите тип вагона:
     1 - Грузовой
@@ -125,8 +125,8 @@ class Interface
       begin
       wagon =  CargoWagon.new(wagon_number, volume)
       rescue StandardError => e
-      puts "Ошибка: #{e.message}"
-      puts "Введите корректные данные"
+        puts "Ошибка: #{e.message}"
+        puts "Введите корректные данные"
       end
       @wagons[wagon_number] = wagon
     elsif type == 2
@@ -135,8 +135,8 @@ class Interface
       begin
       wagon = PassengerWagon.new(wagon_number, seats)
       rescue StandardError => e
-      puts "Ошибка: #{e.message}"
-      puts "Введите корректные данные"
+        puts "Ошибка: #{e.message}"
+        puts "Введите корректные данные"
       end
       @wagons[wagon_number] = wagon  
     end  
@@ -145,7 +145,7 @@ class Interface
   def set_route
     puts "Введите номер поезда поезда"
     @trains.each { |n, t| puts n}
-    number = gets.chomp.upcase
+    number = gets.chomp
     puts "Введите название маршрута из списка"
      @routes.each { |n, r| puts n}
     r = gets.chomp
@@ -198,9 +198,11 @@ class Interface
   
   def trains_on_station
     puts "Введите название станции"
-    @stations.each { |name, station| puts n}
+    @stations.each { |name, station| puts name}
     station_name = gets.chomp 
-    @stations.each { |name, station| station.trains_list if name == station_name} 
+    @stations.each do |name, station| 
+      station.trains_list_actions { |t| puts t} if name == station_name
+    end   
   end 
   
   def stations_list
@@ -218,17 +220,17 @@ class Interface
       @trains.each { |n, t| puts n}
     end
   end
-  
+
   def trains_wagons
     puts "Введите номер поезда из списка"
     @trains.each { |n, t| puts n}
-    n = gets.chomp.upcase
+    n = gets.chomp
     @trains.select do |number, train| 
       if number == n
-        if  number.wagons.empty?
+        if  train.wagons_list_actions.empty?
           puts "Нет прикрепленных вагонов к  поезду"
         else 
-          train.wagons
+          train.wagons_actions {|w| puts w}
         end
       else
         puts "Проверьте правильность введенного номера поезда"
@@ -272,7 +274,7 @@ class Interface
   def load_wagon
     @wagons.each { |n, w| puts n if w.class == CargoWagon}
     puts "Введите номер вагона.Допустимый формат: 2 буквы и 3 цифры,без дефисов и пробелов"
-    wagon_number = gets.chomp.upcase
+    wagon_number = gets.chomp
     if @wagons.include?(wagon_number)
       puts "Введите количество груза"
       amount = gets.chomp.to_i
@@ -285,7 +287,7 @@ class Interface
   def take_a_seat
     @wagons.each { |n, w| puts n if w.class == PassengerWagon}
     puts "Введите номер вагона.Допустимый формат: 2 буквы и 3 цифры,без дефисов и пробелов"
-    wagon_number = gets.chomp.upcase
+    wagon_number = gets.chomp
     if @wagons.include?(wagon_number)
       puts "Введите номер места"
       seat = gets.chomp.to_i
