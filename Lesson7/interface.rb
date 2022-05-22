@@ -3,8 +3,8 @@ class Interface
     puts "Привет,это программа-абстракция железной дороги"
     @stations = []
     @trains = []
-    @routes = {}
-    @wagons = {}
+    @routes = []
+    @wagons = []
   end
   
   def run
@@ -57,7 +57,7 @@ class Interface
   def create_station
     puts "Введите название станции.Допустимый формат: Допустимый формат: от 2 до 15 букв без пробелов и дефисов"
     station_name = gets.chomp
-    if station_name == @stations.each { |s| s.name }# Не работает
+    if @stations.find { |s| s.name == station_name }
       puts "Такая станция уже существует"
     else  
       begin    
@@ -73,7 +73,7 @@ class Interface
   def create_train
     puts "Введите номер поезда поезда.Допустимый формат: три буквы или цифры в любом порядке, необязательный дефис (может быть, а может нет) и еще 2 буквы или цифры после дефиса"
     train_number = gets.chomp
-    if train_number == @trains.each { |t| t.number }# Не работает
+    if  @trains.find { |t| t.number == train_number }
       puts "Такой поезд уже существует"
     else  
       puts "Выберите тип поезда:
@@ -103,7 +103,7 @@ class Interface
   def create_route
     puts "Введите название маршрута.Допустимый формат: от 2 до 15 букв первый город маршрута,дефис,от 2 до 15 букв первый город маршрута"
     route_name = gets.chomp
-    if @routes.include?(route_name)#Не работет
+    if  @trains.find { |r| r.number == route_name }
       puts "Такой маршрут уже существует"
     else  
       puts "Введите начальную станцию маршрута"
@@ -116,14 +116,14 @@ class Interface
         puts "Ошибка: #{e.message}"
         puts "Введите корректные данные"
       end
-      @routes[route_name] = route 
+      @routes << route 
     end     
   end
   
   def create_wagon  
     puts "Введите номер вагона.Допустимый формат: 2 буквы и 3 цифры,без дефисов и пробелов"
     wagon_number = gets.chomp
-    if @wagons.include?(wagon_number) #Не работает
+    if @wagons.find { |w| w.number == wagon_number }
       puts "Такой вагон уже существует"
     else    
       puts "Выберите тип вагона:
@@ -237,7 +237,7 @@ class Interface
     if @trains.empty?
       puts "Нет созданных поездов"
     else  
-      @trains.each { |train| puts train }
+      @trains.each { |train| puts train.name }
     end
   end
 
