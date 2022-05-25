@@ -158,23 +158,6 @@ class Interface
     end
   end
 
-  def set_route
-    puts 'Введите номер поезда поезда'
-    @trains.each { |train| puts train.number }
-    n = gets.chomp
-    puts 'Введите название маршрута из списка'
-    @routes.each { |r| puts r.name }
-    r = gets.chomp
-    @trains.select do |train|
-      if train.number == n
-        train.route_set(r)
-      else
-        puts 'Проверьте правильность введенного номера поезда'
-      end
-    end
-    puts "Вы назначили поезду номер #{n} маршрут #{r}"
-  end
-
   def add_wagon
     puts 'Введите номер поезда поезда из списка'
     @trains.each { |train| puts train.number }
@@ -208,7 +191,10 @@ class Interface
     case answr
     when 1 then @trains.each { |train| train.move_forward if train.number == number }
     when 2 then @trains.each { |train| train.move_back if train.number == number }
+    else
+      puts 'Проверьте правильность введенного номера поезда'
     end
+    puts "Вы назначили поезду номер #{n} маршрут #{r}"
   end
 
   def trains_on_station
@@ -231,18 +217,22 @@ class Interface
   def stations_list
     @stations.empty? puts 'Нет созданных станций': @stations.each { |s| puts s.name }
   end
+  # @stations.empty? puts 'Нет созданных станций': @stations.each { |s| puts s.name } так не работает
 
   def trains_list
     @trains.empty? puts 'Нет созданных поездов': @trains.each { |train| puts train.name }
   end
+  # @trains.empty? puts 'Нет созданных поездов': @trains.each { |train| puts train.name } так не работает
 
   def routes_list
     @routes.empty? puts 'Нет созданных маршрутов': @routes.each { |r| puts r }
   end
+  # @routes.empty? puts 'Нет созданных маршрутов': @routes.each { |r| puts r } так не работает
 
   def wagons_list
     @wagons.empty? puts 'Нет созданных вагонов': @wagons.each { |w| puts w }
   end
+  # @wagons.empty? ? puts 'Нет созданных вагонов' : @wagons.each { |w| puts w } так не работает
 
   def trains_wagons
     puts 'Введите номер поезда из списка'

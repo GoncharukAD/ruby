@@ -87,6 +87,7 @@ class Train
   def remove_wagons(wagon)
     if @speed.zero? && @wagons_list.empty? == false
       @wagons_list.delete(wagon)
+    else
       puts 'Пожалуйста,остановите поезд и проверьте наличие вагонов'
     end
   end
