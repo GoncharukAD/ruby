@@ -35,11 +35,6 @@ class Train
     @speed += speed if speed.positive?
   end
 
-  def valid?
-    validate!
-    true
-  end
-
   def stop
     @speed = 0
   end
@@ -94,12 +89,5 @@ class Train
     else
       puts 'Пожалуйста,остановите поезд и проверьте наличие вагонов'
     end
-  end
-
-  protected
-
-  def validate!
-    raise 'Номер поезда не был введен' if number.nil?
-    raise 'Некорректный формат номера поезда' if number !~ NUMBER_FORMAT
   end
 end

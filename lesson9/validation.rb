@@ -1,7 +1,7 @@
 module Validation
   def self.included(receiver)
     receiver.extend         ClassMethods
-    receiver.send :include, InstanceMethods
+    receiver.include     InstanceMethods
   end
 
   module ClassMethods
@@ -9,7 +9,7 @@ module Validation
 
     def validate(name, type, arg = '')
       self.validations ||= []
-      rule = { type => { name: name, arg: arg } }
+      rule = { type: { name: name, arg: arg } }
       validations << rule
     end
   end

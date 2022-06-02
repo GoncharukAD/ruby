@@ -2,9 +2,16 @@
 
 class Route
   include InstanceCounter
+  include Acсessors
+  include Validation
+
   NAME_FORMAT = /^[А-Я]{2,15}-+[А-Я]{2,15}$/i.freeze
 
   attr_reader :start, :finish, :stations, :name
+
+  validate :num, :presence
+  validate :num, :format, NAME_FORMAT
+  validate :attribute_class, :type, 'Route'
 
   def initialize(start, finish, name)
     @start = start
@@ -14,11 +21,6 @@ class Route
     @stations = []
     validate!
     puts "Вы создали маршрут #{start} - #{finish}" if valid? == true
-  end
-
-  def valid?
-    validate!
-    true
   end
 
   def route
@@ -38,14 +40,5 @@ class Route
     else
       puts "Cтанции #{station_name} нет в маршруте"
     end
-  end
-
-  protected
-
-  def validate!
-    raise 'Начальная станция маршрута не была введена' if start.nil?
-    raise 'Конечная станция маршрута не была введена' if finish.nil?
-    raise 'Название маршрута не было введено' if name.nil?
-    raise 'Некорректный формат названия маршрута' if name !~ NAME_FORMAT
   end
 end

@@ -28,14 +28,8 @@ class Station
     @@all_stations
   end
 
-  # принимает блок и проходит по всем поездам на станции, передавая каждый поезд в блок.
   def trains_list_actions(&block)
     @trains_list.each(&block)
-  end
-
-  def valid?
-    validate!
-    true
   end
 
   def arrive(train)
@@ -48,12 +42,5 @@ class Station
 
   def depart(train)
     trains_list.delete(train)
-  end
-
-  protected
-
-  def validate!
-    raise 'Название станции не было введено' if name.nil?
-    raise 'Некорректный формат названия станции' if name !~ NAME_FORMAT
   end
 end
